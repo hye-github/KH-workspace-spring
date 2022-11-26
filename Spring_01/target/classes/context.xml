@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- <bean id="tv" class="kh.spring.tools.LgTV"> -->
+	<!-- 	<constructor-arg ref="speaker"/>  --> <!-- 생성자 주입 ( Constructor Injection ) // 생성자 없으면 에러남 -->
+	<!-- 	<constructor-arg value="100000"/>  --> <!--  DI : constructor  -->
+	<!-- </bean>  -->
+	
+	
+	<!-- <bean id="tv" class="kh.spring.tools.LgTV">  -->
+	<!--	<property name="speaker" ref="speaker"/>  -->
+	<!--	<property name="price" value="200000"/>  --> <!-- setter 주입 -->
+	<!-- </bean>  -->
+	
+	<!-- <bean id="speaker" class="kh.spring.tools.SonySpeaker"></bean>  -->
+	
+	<bean id="tv" class="kh.spring.tools.SamsungTV"> <!-- 삼성티비가 TV를 상속 받아서 TV.class로 받아오는 것 (다형성) -->
+		<constructor-arg ref="gson" />
+	</bean>
+	
+	<bean id="gson" class="com.google.gson.Gson"></bean>
+	
+	<!--  <bean id="tv" class="kh.spring.tools.LgTV" lazy-init="true" scope="prototype"></bean> -->
+	<!-- 제어의 역전 : Inversion Of Control -> IOC , Dependency Lookup -> DL -->
+	<!-- lazy-init="true" 이 속성을 주게 되면,  ctx.getBean(TV.class) 하는 순간에만 만들어진다. -->
+
+	<!-- TV tv = ctx.getBean(TV.class); // getBean = Lookup 이랑 비슷
+		tv = ctx.getBean(TV.class);
+		tv = ctx.getBean(TV.class);
+		tv = ctx.getBean(TV.class);
+		tv = ctx.getBean(TV.class);
+		tv = ctx.getBean(TV.class);
+		tv = ctx.getBean(TV.class); // Spring Container 으로 만들어진 애들은 싱글턴으로 되어있다.
+		이렇게 하고싶지않다면,  scope="prototype" 로 지정 -->
+		
+</beans>
