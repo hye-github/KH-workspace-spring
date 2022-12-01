@@ -68,8 +68,12 @@ h1 {
 
 <body>
 
+	<div class="center">
+		<img src="/resources/ggom.png" width="30%">
+	</div>
+	
 	<c:choose>
-		<c:when test="${loginID != null}">
+		<c:when test="${loginID != null}">w
 
 			<div class="container border bg-light">
 				<form id="frm" action="/member/delete" method="post">
@@ -164,7 +168,7 @@ h1 {
 			</div>
 		</c:otherwise>
 	</c:choose>
-
+	
 </body>
 
 </html>

@@ -13,13 +13,30 @@
 <title>Board</title>
 
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
+<script
+	src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+	
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-<link
-	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 
-<script	src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+	crossorigin="anonymous"></script>
+
+
 
 <style>
 @import
@@ -30,25 +47,22 @@
 	-animate-duration: 2s; -
 	-animate-delay: 0.9s;
 }
-
 </style>
 </head>
 
 <body>
 
-	<div class="container" style="text-algn:center">
-<h5>Free Board</h5>
-			<hr class="d-none d-md-block">
+	<div class="container" style="text-algn: center; margin-top: 50px;">
 
-		<table class="cell-border compact stripe display" id="myTable">
-			
+		<table class="table hover" id="myTable" style="width: 100%">
+
 			<thead>
-				<tr class="row text-center titleline">
-					<th class="col-md-1 no d-none d-md-block">no.</th>
-					<th class="col-12 col-md-6 title d-none d-md-block">title</th>
-					<th class="col-md-2 writer d-none d-md-block">writer</th>
-					<th class="col-md-1 hits d-none d-md-block">view</th>
-					<th class="col-md-2 date d-none d-md-block">date</th>
+				<tr>
+					<th>no.</th>
+					<th>title</th>
+					<th>writer</th>
+					<th>view</th>
+					<th>date</th>
 				</tr>
 			</thead>
 
@@ -57,32 +71,23 @@
 				<c:choose>
 					<c:when test="${not empty list}">
 						<c:forEach var="i" items="${list}">
-							
-							<tr class="row text-center">
-								<td class="col-12 col-md-1 no d-none d-md-block">${i.seq}</td>
-								<td class="col-12 col-md-6 title text-truncate" id="title">
-									<a href="/detail.board?seq=${i.seq}">${i.title} <span
-										class="gray">[${i.commentNum}]</span></a> <!-- 날짜 계산 --> <jsp:useBean
-										id="now" class="java.util.Date" /> <fmt:parseNumber
-										value="${now.time / (1000*60*60*24)}" integerOnly="true"
-										var="nowfmtTime" scope="request" /> <fmt:parseNumber
+
+							<tr>
+								<td>${i.seq}</td>
+								<td id="title"><a href="/board/detail?seq=${i.seq}">${i.title}
+										<span class="gray">[${i.commentNum}]</span>
+								</a> <!-- 날짜 계산 --> <jsp:useBean id="now" class="java.util.Date" />
+									<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
+										integerOnly="true" var="nowfmtTime" scope="request" /> <fmt:parseNumber
 										value="${i.write_date.time / (1000*60*60*24)}"
 										integerOnly="true" var="dbDtParse" scope="request" /> <c:if
 										test="${(dbDtParse - nowfmtTime)==0}">
 										<span
 											class="badge bg-danger animate__animated animate__flash animate__infinite">NEW</span>
-									</c:if>
-								</td>
-								<td class="col-5 col-md-2 writer"><i
-									class="bi bi-pen d-block d-md-none"> ${i.writer}</i><span
-									class="d-none d-md-block"> ${i.writer}</span></td>
-								<td class="col-2 col-md-1 hits"><i
-									class="bi bi-eye d-block d-md-none"> ${i.view_count}</i><span
-									class="d-none d-md-block"> ${i.view_count}</span></td>
-								<td class="col-5 col-md-2 date"><i
-									class="bi bi-clock-history d-block d-md-none">
-										${i.formedDate}</i><span class="d-none d-md-block">
-										${i.formedDate}</span></td>
+									</c:if></td>
+								<td>${i.writer}</td>
+								<td>${i.view_count}</td>
+								<td>${i.formedDate}</td>
 							</tr>
 						</c:forEach>
 					</c:when>
@@ -104,7 +109,12 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#myTable').DataTable();
+			$('#myTable').DataTable(
+					{ order: [[0, 'desc']],lengthMenu: [
+			            [10, 25, 50, -1],
+			            [10, 25, 50, 'All'],
+			        ],}	
+			);
 		});
 
 		$("#toWrite").on("click", function() {

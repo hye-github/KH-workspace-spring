@@ -114,20 +114,20 @@
 
     <div class="container">
 
-	<form id="frm" action="/checkmodify.board" method="post">
+	<form id="frm" action="/board/modify" method="post">
 	<div class="d-none"><input name="seq" value="${list.seq}"></div>
 	        <div class="board alert alert-secondary" role="alert">
 	            <h5>Modify Page</h5>
 	            <hr>
 	            <div class="row titleline">
 	                <div class="col-12">
-	                    <input type="text" name="titlepost" value="${list.title}">
+	                    <input type="text" name="title" value="${list.title}">
 	                </div>
 	            </div>
 	            <hr>
 	            <div class="row">
 	                <div class="col-12">
-	                <textarea name="contentspost">${list.contents}</textarea>
+	                <textarea name="contents">${list.contents}</textarea>
 	                </div>
 	            </div>
 	            <hr>
@@ -146,7 +146,7 @@
 
 	<script>
 		$("#toBoard").on("click",function(){
-			location.href="/list.board?cpage=1";
+			location.href="/board/list";
 		})
 		
 	</script>

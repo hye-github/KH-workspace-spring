@@ -64,7 +64,9 @@ public class MessageController {
 	public String selectAll(Model model) {
 		try {
 			List<MessageDTO> list = dao.selectAll();
+			int count = dao.count();
 			model.addAttribute("list", list);
+			model.addAttribute("count", count);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

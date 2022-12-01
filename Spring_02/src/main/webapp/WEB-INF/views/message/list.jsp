@@ -12,7 +12,7 @@
 
 	<table>
 		<tr>
-			<th colspan=3>Message List
+			<th colspan=3>Message List (${count})
 		</tr>
 		<tr>
 			<th>Seq

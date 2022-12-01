@@ -117,17 +117,18 @@
 
     <div class="container">
 
-
-<form id="frm" action="/checkwrite.board" method="post" enctype="multipart/form-data">
+<form id="frm" method="post" enctype="multipart/form-data" onsubmit="sendit(); return false;">
+<!-- 파일첨부는 무조건 post, enctype="multipart/form-data" 무조건 이거 포함 -->
 
 <!-- enctype="multipart/form-data" 이거 쓰면서 request.getParameter("titlepost"); 사용 불가능하다. 현재는 cos.jar 사용하기로함. -->
-
+		<input type="hidden" value="${loginID}" name="writer">
+		
         <div class="board alert alert-secondary" role="alert">
             <h5>Write Page</h5>
             <hr>
             <div class="row titleline">
                 <div class="col-12">
-                    <input type="text" placeholder="Please enter a post title" name="titlepost">
+                    <input type="text" placeholder="Please enter a post title" name="title" id="title">
                 </div>
             </div>
             <hr>
@@ -135,22 +136,27 @@
             <div class="row">
             
                 <div class="col-12">
-                <textarea placeholder="Please enter a post contents" name="contentspost"></textarea>
+                <textarea placeholder="Please enter a post contents" name="contents" id="contents"></textarea>
                 </div>
                 
-                <!-- Attachments 파일 업로드 기능 -->
-                <div class="input-group">
-				  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Files Add</button>
-				</div>
-				
-                <!-- <input type="file" class="form-control" id="inputGroupFile02" name="file" multiple>  똑같은 name으로 올라가게 된다. -->
                 
+                <div class="input-group">
+				<input type="file" class="form-control" id="files" name="files" multiple>
+				<!-- 
+				<input type="file" class="form-control" id="file" name="file">
+				 -->
+				<!-- cos.jar는 name 값이 같으면 올릴 수 없다. multiple 옵션에서는 name 하나로 올리는거라 불가능 -->
+                <!-- Attachments 파일 업로드 기능 
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Files Add</button>
+				-->
+                <!-- <input type="file" class="form-control" id="inputGroupFile02" name="file" multiple>  똑같은 name으로 올라가게 된다. -->
+                </div>
             </div>
             
             <div class="row text-center">
                 <div class="btncenter">
                     <button class="btn btn-secondary" id="toBoard" type="button">List</button>
-                    <button class="btn btn-primary">Write</button>
+                    <button class="btn btn-primary" id="toWrite">Write</button>
                 </div>
             </div>
         </div>
@@ -163,6 +169,7 @@
 		$("#toBoard").on("click",function(){
 			history.back();
 		})
+		
 		let count=1;
 		$("#inputGroupFileAddon04").on("click",function(){
 			let fileDiv = $("<div class='input-group'>");
@@ -183,6 +190,25 @@
 			
 		})
 		
+
+		function sendit() {
+			
+			console.log($("#title").val());
+			console.log($("#contents").val());
+			var $fileUpload = $("input[type='file']");
+			
+			if($("#title").val()=="" || $("#contents").val()==""){
+				alert("제목이나 내용입력이나 해라");
+				return false;
+			} else if (parseInt($fileUpload.get(0).files.length)>2) {
+	            alert("파일 두개만 올려라");
+	            $("input[type='file']").val("");
+	            return false;
+			} else {
+				$("#frm").attr("action", "/file/multiUpload")
+				$("#frm").submit();
+			}
+		}
 		
 	</script>
 

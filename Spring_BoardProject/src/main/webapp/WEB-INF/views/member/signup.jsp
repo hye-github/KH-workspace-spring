@@ -59,7 +59,7 @@
     <div class="container border bg-light">
         <h2>Sign Up</h4>
         
-            <form id="frm" action="/member/sign" method="post">
+            <form id="frm" action="/member/sign" method="post" enctype="multipart/form-data">
             
             <!-- 값 중에 uri가 있어서 무조건 메서드 post 처리를 해야한다. -->
             
@@ -130,6 +130,17 @@
                     </div>
                 </div>
 
+
+				<div class="row mb-3 gy-2">
+                    <div class="col-sm-4"><img src="/images/no_profile.png" id="profile" style="width:100%;"></div>
+                    <div class="col-sm-6">
+                    <!-- 
+                        <input type="file" id="profile_img" name="file">
+                     -->    
+                        <input type="file" id="profile_img" name="files" accept=".png,.jpg,.jpeg,.gif">
+                    </div>
+                </div>
+
                 <div id="center">
                     <button type="submit" class="btn btn-primary">Join</button>
                     <button type="button" class="btn btn-primary" id="rewrite">Retype</button>
@@ -140,6 +151,51 @@
 
 
     <script>
+
+	    function fileToBase64(file){
+	        const reader = new FileReader();
+	         reader.readAsDataURL(file)
+	         reader.onload = () => {	       
+	            console.dir(reader.result)   // base64
+	            $("#profile").attr("src", reader.result);
+	         }
+	     }
+    
+    
+    	$("#profile_img").on("change", function(){
+    		
+    		if($("#profile_img").val()==""){
+    			$("#profile").attr("src", "/images/no_profile.png");
+    			return;
+    		}
+    		
+    		console.log($("#profile_img").val());
+    	
+    		let ext = $("#profile_img").val().split(".").pop().toLowerCase();
+    	
+    		console.log(ext);
+    		
+    		let accept = ["jpg","png","jpeg","gif"]
+    		
+    		let result = $.inArray(ext, accept);
+    		// 첫 번째 인자 값이, 두번 째 인자 배열 안에 존재한다면 0 이상 값 반환
+    		// (배열에서를 찾아주는거라 확장자명에 따라서 배열 인덱스로 반환)
+    		// 존재 하지 않는다면 -1 을 반환
+    		// 특정 값이 특정 배열 안에 있나 없나 검색해주는 함수
+    		
+    		console.log(result);
+    		
+    		
+    		if(result == -1){
+    			alert("이미지 파일만 사용 가능합니다");
+    			$("#profile_img").val("");
+    			$("#profile").attr("src", "/images/no_profile.png");
+    		} else {
+    			fileToBase64(document.getElementById("profile_img").files[0]);
+    		} 
+    		
+    	})
+    
     
     	$("#id").on("input",function(){
     		idcheck = false; // 아이디를 수정하게되면 false로 되도록

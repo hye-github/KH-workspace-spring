@@ -8,52 +8,50 @@ import kh.spring.tools.SamsungTV;
 
 public class HomeController {
 	public static void main(String[] args) {
-		
+
 //		SamsungTV tv = new SamsungTV();
 //		tv.powerOn();
 //		tv.volumeUp();
 //		tv.powerOff();
-		
-		// À¯Áöº¸¼ö¸¦ ³ôÀÌ°í °áÇÕµµ¸¦ ³·Ãß±â À§ÇÔ
-		
-		// ´ÙÇü¼º È°¿ë - °°Àº º¯¼ö¸íÀÎ tvÀÇ ÀçÈ°¿ë
-		// interface È°¿ë - ¸Ş¼­µå ÀÌ¸§¿¡ ´ëÇÑ ÅëÀÏ °­¿ä
-		
+
+		// ìœ ì§€ë³´ìˆ˜ë¥¼ ë†’ì´ê³  ê²°í•©ë„ë¥¼ ë‚®ì¶”ê¸° ìœ„í•¨
+
+		// ë‹¤í˜•ì„± í™œìš© - ê°™ì€ ë³€ìˆ˜ëª…ì¸ tvì˜ ì¬í™œìš©
+		// interface í™œìš© - ë©”ì„œë“œ ì´ë¦„ì— ëŒ€í•œ í†µì¼ ê°•ìš”
+
 //		LgTV tv = new LgTV();
 //		TV tv = new LgTV();
 //		TV tv = TvFactory.getTv("samsung");
 //		TV tv = TvFactory.getTv(args[0]);
-		
-		
+
+
 		ApplicationContext ctx = new GenericXmlApplicationContext("context.xml");
-		// Spring Container »ı¼º
-//		ctx.getBean("tv"); // "¾ß! ½ºÇÁ¸µ Tv id °¡Áø ÀÎ½ºÅÏ½º ³ª Áà"
-		// Å¸ÀÔÀÌ ¹ºÁö ¸ô¶ó¼­ ¿ÀºêÁ§Æ® Å¸ÀÔÀ¸·Î °¡Á®¿Â´Ù. Ä³½ºÆÃ ÇØÁà¾ßÇÑ´Ù.
+		// Spring Container ìƒì„±
+//		ctx.getBean("tv"); // "ì•¼! ìŠ¤í”„ë§ Tv id ê°€ì§„ ì¸ìŠ¤í„´ìŠ¤ ë‚˜ ì¤˜"
+		// íƒ€ì…ì´ ë­”ì§€ ëª°ë¼ì„œ ì˜¤ë¸Œì íŠ¸ íƒ€ì…ìœ¼ë¡œ ê°€ì ¸ì˜¨ë‹¤. ìºìŠ¤íŒ… í•´ì¤˜ì•¼í•œë‹¤.
 
 //		TV tv = (SamsungTV)ctx.getBean("tv");
 
-		TV tv = ctx.getBean(TV.class); // Spring Container ¿¡°Ô tv ¶ó´Â id ¸¦ °¡Áø ÀÎ½ºÅÏ½º ¿äÃ»
-		// getBean = Lookup ÀÌ¶û ºñ½Á
+		TV tv = ctx.getBean(TV.class); // Spring Container ì—ê²Œ tv ë¼ëŠ” id ë¥¼ ê°€ì§„ ì¸ìŠ¤í„´ìŠ¤ ìš”ì²­
+		// getBean = Lookup ì´ë‘ ë¹„ìŠ·
 		System.out.println(tv.getClass());
 		((SamsungTV)tv).checkGson();
-		
-		
-		
+
 //		tv.volumeUp();
-		
+
 //		tv = ctx.getBean(TV.class);
 //		tv = ctx.getBean(TV.class);
 //		tv = ctx.getBean(TV.class);
 //		tv = ctx.getBean(TV.class);
 //		tv = ctx.getBean(TV.class);
-//		tv = ctx.getBean(TV.class); // Spring Container À¸·Î ¸¸µé¾îÁø ¾ÖµéÀº ½Ì±ÛÅÏÀ¸·Î µÇ¾îÀÖ´Ù.
-		
+//		tv = ctx.getBean(TV.class); // Spring Container ìœ¼ë¡œ ë§Œë“¤ì–´ì§„ ì• ë“¤ì€ ì‹±ê¸€í„´ìœ¼ë¡œ ë˜ì–´ìˆë‹¤.
+
 //		tv.on();
 //		tv.volumeUp();
 //		tv.off();
-			
-		
-		
+
+
+
 	}
 }
 

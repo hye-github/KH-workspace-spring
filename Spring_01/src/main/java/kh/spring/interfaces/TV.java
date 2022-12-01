@@ -1,7 +1,7 @@
 package kh.spring.interfaces;
 
 public interface TV {
-	// Ãß»ó ¸Ş¼­µå¶ó Áß°ıÈ£ x
+	// ì¶”ìƒ ë©”ì„œë“œë¼ ì¤‘ê´„í˜¸ x
 	public void on();
 	public void off();
 	public void volumeUp();

@@ -54,7 +54,7 @@
         <body>
             <div class="container border bg-light">
                 <h2>My page Modify</h4>
-
+                
                 <form id="frm" action="/member/modify" method="post">
             
             <!-- 값 중에 uri가 있어서 무조건 메서드 post 처리를 해야한다. -->

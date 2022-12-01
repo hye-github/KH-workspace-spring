@@ -4,26 +4,26 @@ import kh.spring.interfaces.Speaker;
 import kh.spring.interfaces.TV;
 
 public class LgTV implements TV{
-	
+
 	private Speaker speaker;
 	private int price;
-	
-	// private Speaker speaker = new GenericXmlApplicationContext().getBean(Speaker.class);
-	// GenericXmlApplicationContext ÀÌ ÀÎ½ºÅÏ½º ÀÚÃ¼°¡ ½ºÇÁ¸µÀÌ°í, ½ºÇÁ¸µ ÄÁµ¥ÀÌ³Ê¸¦ main¿¡¼­µµ ¸¸µé¾ú°í, ¿©±â¿¡¼­µµ ¸¸µé¾úÀ½.
-	// ¼­ºñ½º ¿î¿µÇÏ´Âµ¥ ÅèÄ¹ µÎ¹øÀÌ³ª ÄÑÁö¾Ê´Â °ÍÀÌ¶û µ¿ÀÏ. ½ºÇÁ¸µÀº ÇÑ¹ø¸¸ »ı¼ºÇØµµ µÊ.
 
-	
+	// private Speaker speaker = new GenericXmlApplicationContext().getBean(Speaker.class);
+	// GenericXmlApplicationContext ì´ ì¸ìŠ¤í„´ìŠ¤ ìì²´ê°€ ìŠ¤í”„ë§ì´ê³ , ìŠ¤í”„ë§ ì»¨ë°ì´ë„ˆë¥¼ mainì—ì„œë„ ë§Œë“¤ì—ˆê³ , ì—¬ê¸°ì—ì„œë„ ë§Œë“¤ì—ˆìŒ.
+	// ì„œë¹„ìŠ¤ ìš´ì˜í•˜ëŠ”ë° í†°ìº£ ë‘ë²ˆì´ë‚˜ ì¼œì§€ì•ŠëŠ” ê²ƒì´ë‘ ë™ì¼. ìŠ¤í”„ë§ì€ í•œë²ˆë§Œ ìƒì„±í•´ë„ ë¨.
+
+
 	public LgTV() {
 		super();
 	}
-	
+
 
 	public LgTV(Speaker speaker, int price) {
 		super();
 		this.speaker = speaker;
 		this.price = price;
 	}
-	
+
 
 	public Speaker getSpeaker() {
 		return speaker;
@@ -41,19 +41,19 @@ public class LgTV implements TV{
 		this.price = price;
 	}
 
-	
-	
-	
+
+
+
 	@Override
 	public void on() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void off() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -64,16 +64,16 @@ public class LgTV implements TV{
 	@Override
 	public void volumeDown() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 
-	
-	
+
+
 //	public void on() {}
 //	public void off() {}
 //	public void toneUp() {}
 //	public void toneDown() {}
-	
+
 }
