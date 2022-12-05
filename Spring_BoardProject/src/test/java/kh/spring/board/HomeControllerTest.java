@@ -1,7 +1,5 @@
 package kh.spring.board;
 
-
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,9 +57,7 @@ public class HomeControllerTest {
 			).andExpect(
 					MockMvcResultMatchers.status().isOk()
 			).andExpect(
-					MockMvcResultMatchers.model().attributeExists("list.name")
-			).andExpect(
-					MockMvcResultMatchers.model().attributeExists("mypage")
+					MockMvcResultMatchers.model().attributeExists("list")
 			);
 			System.out.println("MockMVC 테스트 성공");
 			logger.info("테스트 성공");
@@ -75,25 +71,25 @@ public class HomeControllerTest {
 	
 
 	
-	@Test
-	public void insertTest() throws Exception {
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/member/sign")
-				.param("id", "asd")
-				.param("pw", "123")
-				.param("name", "Tom")
-				.param("phone", "01012341234")
-				.param("email", "a@a.com")
-				.param("zipcode", "123")
-				.param("address1", "서울시")
-				.param("address2", "어쩌구")
-				.param("profile", "null")
-		).andDo(
-				MockMvcResultHandlers.print()
-		).andExpect(
-				MockMvcResultMatchers.status().is3xxRedirection()
-				);
-	}
+//	@Test
+//	public void insertTest() throws Exception {
+//		this.mockMvc.perform(
+//				MockMvcRequestBuilders.post("/member/sign")
+//				.param("id", "asd")
+//				.param("pw", "123")
+//				.param("name", "Tom")
+//				.param("phone", "01012341234")
+//				.param("email", "a@a.com")
+//				.param("zipcode", "123")
+//				.param("address1", "서울시")
+//				.param("address2", "어쩌구")
+//				.param("profile", "null")
+//		).andDo(
+//				MockMvcResultHandlers.print()
+//		).andExpect(
+//				MockMvcResultMatchers.status().is3xxRedirection()
+//				);
+//	}
 
 	
 }
