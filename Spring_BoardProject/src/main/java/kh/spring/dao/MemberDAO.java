@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,71 +21,132 @@ import kh.spring.dto.MemberDTO;
 
 @Component
 public class MemberDAO {
-	
+
 	@Autowired
-	private JdbcTemplate jdbc;
-
-	public int idCheck(String id) throws Exception {
-		String sql = "select count(*) from members where id = ?";
-		return jdbc.queryForObject(sql, Integer.class, id);
-	}
+	private SqlSession db;
 	
-	public int isLoginOk(String id, String pw) throws Exception {
-		String sql = "select count(*) from members where id = ? and pw = ?";
-		return jdbc.queryForObject(sql, Integer.class, id, pw);
-	}
-
-	public int sign(MemberDTO dto, String sysName) throws Exception {
-		String sql = "insert into members values(?,?,?,?,?,?,?,?,sysdate,?)";
-		return jdbc.update(sql, dto.getId(),
-				dto.getPw(),
-				dto.getName(),
-				dto.getPhone(),
-				dto.getEmail(),
-				dto.getZipcode(),
-				dto.getAddress1(),
-				dto.getAddress2(),
-				sysName);
-	}
-
-
-	public int modify(MemberDTO dto) throws Exception {
-		String sql = "update members set pw=?, name=?, phone=?, email=?, zipcode=?, address1=?, address2=? where id=?";
-		return jdbc.update(sql, dto.getPw(),
-				dto.getName(),
-				dto.getPhone(),
-				dto.getEmail(),
-				dto.getZipcode(),
-				dto.getAddress1(),
-				dto.getAddress2(),
-				dto.getId());
+	
+	public boolean idCheck(String id) throws Exception {
+		return db.selectOne("Member.idCheck", id);
 	}
 
 	public int delete(String id) throws Exception {
-		String sql = "delete from members where id= ?";
-		return jdbc.update(sql, id);
+		return db.delete("Member.delete", id);
 	}
 
-	public MemberDTO selectById(String id) throws Exception {
-		String sql = "select * from members where id=?";
-		return (MemberDTO) jdbc.queryForObject(sql, new RowMapper<MemberDTO>() {
-			@Override
-			public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-				MemberDTO dto = new MemberDTO();
-				dto.setId(rs.getString("id"));
-				dto.setPw(rs.getString("pw"));
-				dto.setName(rs.getString("name"));
-				dto.setPhone(rs.getString("phone"));
-				dto.setEmail(rs.getString("email"));
-				dto.setZipcode(rs.getString("zipcode"));
-				dto.setAddress1(rs.getString("address1"));
-				dto.setAddress2(rs.getString("address2"));
-				dto.setSignup_date(rs.getTimestamp("signup_date"));
-				dto.setProfile(rs.getString("profile"));
-				return dto;
-			}
-		}, id);
+	public int sign(MemberDTO dto) throws Exception {
+		return db.insert("Member.insert", dto);
 	}
+	
+	public boolean isLoginOk(MemberDTO dto) throws Exception {
+		return db.selectOne("Member.isLoginOk", dto);
+	}
+
+	
+	
+//	public MemberDTO selectById(String id) throws Exception {
+//		return (MemberDTO) jdbc.queryForObject(sql, new RowMapper<MemberDTO>() {
+//			@Override
+//			public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				MemberDTO dto = new MemberDTO();
+//				dto.setId(rs.getString("id"));
+//				dto.setPw(rs.getString("pw"));
+//				dto.setName(rs.getString("name"));
+//				dto.setPhone(rs.getString("phone"));
+//				dto.setEmail(rs.getString("email"));
+//				dto.setZipcode(rs.getString("zipcode"));
+//				dto.setAddress1(rs.getString("address1"));
+//				dto.setAddress2(rs.getString("address2"));
+//				dto.setSignup_date(rs.getTimestamp("signup_date"));
+//				dto.setProfile(rs.getString("profile"));
+//				return dto;
+//			}
+//		}, id);
+//	}
+	
+
+//	public int modify(MemberDTO dto) throws Exception {
+//				return db.update(sql, dto.getPw(),
+//				dto.getName(),
+//				dto.getPhone(),
+//				dto.getEmail(),
+//				dto.getZipcode(),
+//				dto.getAddress1(),
+//				dto.getAddress2(),
+//				dto.getId());
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+//	@Autowired
+//	private JdbcTemplate jdbc;
+//
+//	public int idCheck(String id) throws Exception {
+//		String sql = "select count(*) from members where id = ?";
+//		return jdbc.queryForObject(sql, Integer.class, id);
+//	}
+//	
+//	public int isLoginOk(String id, String pw) throws Exception {
+//		String sql = "select count(*) from members where id = ? and pw = ?";
+//		return jdbc.queryForObject(sql, Integer.class, id, pw);
+//	}
+//
+//	public int sign(MemberDTO dto, String sysName) throws Exception {
+//		String sql = "insert into members values(?,?,?,?,?,?,?,?,sysdate,?)";
+//		return jdbc.update(sql, dto.getId(),
+//				dto.getPw(),
+//				dto.getName(),
+//				dto.getPhone(),
+//				dto.getEmail(),
+//				dto.getZipcode(),
+//				dto.getAddress1(),
+//				dto.getAddress2(),
+//				sysName);
+//	}
+//
+//
+//	public int modify(MemberDTO dto) throws Exception {
+//		String sql = "update members set pw=?, name=?, phone=?, email=?, zipcode=?, address1=?, address2=? where id=?";
+//		return jdbc.update(sql, dto.getPw(),
+//				dto.getName(),
+//				dto.getPhone(),
+//				dto.getEmail(),
+//				dto.getZipcode(),
+//				dto.getAddress1(),
+//				dto.getAddress2(),
+//				dto.getId());
+//	}
+//
+//	public int delete(String id) throws Exception {
+//		String sql = "delete from members where id= ?";
+//		return jdbc.update(sql, id);
+//	}
+//
+//	public MemberDTO selectById(String id) throws Exception {
+//		String sql = "select * from members where id=?";
+//		return (MemberDTO) jdbc.queryForObject(sql, new RowMapper<MemberDTO>() {
+//			@Override
+//			public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				MemberDTO dto = new MemberDTO();
+//				dto.setId(rs.getString("id"));
+//				dto.setPw(rs.getString("pw"));
+//				dto.setName(rs.getString("name"));
+//				dto.setPhone(rs.getString("phone"));
+//				dto.setEmail(rs.getString("email"));
+//				dto.setZipcode(rs.getString("zipcode"));
+//				dto.setAddress1(rs.getString("address1"));
+//				dto.setAddress2(rs.getString("address2"));
+//				dto.setSignup_date(rs.getTimestamp("signup_date"));
+//				dto.setProfile(rs.getString("profile"));
+//				return dto;
+//			}
+//		}, id);
+//	}
 	
 	
 

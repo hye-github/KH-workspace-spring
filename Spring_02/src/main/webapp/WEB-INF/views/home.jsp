@@ -37,8 +37,34 @@
 		</tr>
 	</table>
 	
+	<hr>
 	
+	<a href="/message/selectBySeq?seq=7">7번글 검색 ( Select By Value )</a>
 	
+	<hr>
+	
+	<fieldset>
+		<legend>Search</legend>
+		<form action="/message/selectByCon">
+			<select name="condition">
+				<option value="writer">Writer</option>
+				<option value="message">Message</option>
+			</select>
+			<input type="text" name="keyword" placeholder="검색 할 단어 입력">
+			<button>검색</button>
+		</form>
+	</fieldset>	
+	
+	<hr>
+	
+	<fieldset>
+		<legend>Search2</legend>
+		<form action="/message/selectByMultiCon">
+			<input type="text" name="writer" placeholder="검색 할 작성자 입력">
+			<input type="text" name="message" placeholder="검색 할 내용 입력">
+			<button>검색</button>
+		</form>
+	</fieldset>
 	
 </body>
 </html>

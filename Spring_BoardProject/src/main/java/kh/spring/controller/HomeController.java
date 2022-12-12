@@ -11,5 +11,9 @@ public class HomeController {
 	public String home() {
 		return "home";
 	}
-	
+
+	@RequestMapping("loginIDerror")
+	public String loginIDerror() {
+		return "loginIDerror";
+	}
 }

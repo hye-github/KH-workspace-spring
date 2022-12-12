@@ -7,15 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kh.spring.dao.MessageDAO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.services.MessageService;
 
 @Controller
 @RequestMapping("/message/") // 이름 지표가 되어줌. 미세한 차이지만 성능 저하를 줄여준다.
 public class MessageController {
 
 	@Autowired
-	private MessageDAO dao;
+	private MessageService service;
 	
 	
 	
@@ -33,7 +33,7 @@ public class MessageController {
 	@RequestMapping("insert")
 	public String param(MessageDTO dto) { // jsp의 name 속성과 DTO 내의 이름이 같아야한다. request 안해도 된다.
 		try {
-			int result = dao.insert(dto);
+			int result = service.insert(dto);
 			System.out.println("결과 : " + result); // 성공은 숫자 1
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,24 +49,26 @@ public class MessageController {
 		// return "redirect:/"; 이렇게 가야 @RequestMapping("/")으로 가면 정보 털고 home에서 시작
 	}
 	
+	
 	@RequestMapping("delete")
 	public String param(int seq) { // jsp의 name 속성과 DTO 내의 이름이 같아야한다. request 안해도 된다.
 		try {
-			dao.delete(seq);
+			service.delete(seq);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
-		return "/message/outputForm";
+		return "redirect:/getList";
 	}
+	
 	
 	@RequestMapping("getList")
 	public String selectAll(Model model) {
 		try {
-			List<MessageDTO> list = dao.selectAll();
-			int count = dao.count();
+			List<MessageDTO> list = service.selectAll();
+//			int count = dao.count();
 			model.addAttribute("list", list);
-			model.addAttribute("count", count);
+//			model.addAttribute("count", count);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,6 +76,34 @@ public class MessageController {
 		}
 		return "/message/list";
 	}
+	
+	
+	@RequestMapping("selectBySeq")
+	public String selectBySeq(int seq) throws Exception {
+		MessageDTO dto = service.selectBySeq(seq);
+		System.out.println(dto.getSeq() + " : " + dto.getWriter() + " : " + dto.getMessage());
+		return "redirect:/";
+	}
+	
+	@RequestMapping("selectByCon")
+	public String selectByCon(String condition, String keyword) throws Exception {
+		List<MessageDTO> list = service.selectByCon(condition, keyword);
+		for(MessageDTO dto : list) {
+			System.out.println(dto.getSeq() + " : " + dto.getWriter() + " : " + dto.getMessage());
+		}
+		return "redirect:/";
+	}
+	
+	
+	@RequestMapping("selectByMultiCon")
+	public String selectByMultiCon(String writer, String message) throws Exception {
+		List<MessageDTO> list = service.selectByMultiCon(writer, message);
+		for(MessageDTO dto : list) {
+			System.out.println(dto.getSeq() + " : " + dto.getWriter() + " : " + dto.getMessage());
+		}
+		return "redirect:/";
+	}
+	
 	
 	
 }

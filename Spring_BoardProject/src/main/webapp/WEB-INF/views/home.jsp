@@ -73,7 +73,7 @@ h1 {
 	</div>
 	
 	<c:choose>
-		<c:when test="${loginID != null}">w
+		<c:when test="${loginID != null}">
 
 			<div class="container border bg-light">
 				<form id="frm" action="/member/delete" method="post">

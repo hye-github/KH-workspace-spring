@@ -13,10 +13,33 @@
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
 	</bean>	
    
+   
+   
+   <!--jdbcTemplate -->
+   <!--
       <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-      
          <property name="dataSource" ref="dataSource"></property>
-      
       </bean>   
+   -->
+   
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	   <property name="dataSource" ref="dataSource"></property>
+	   <property name="mapperLocations" value="classpath:/mybatis/*-mapper.xml"></property>
+   </bean>
+   
+  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+   </bean>
+   
+   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      	<property name="dataSource" ref="dataSource"/>
+   </bean>
+   
+   
+   
+   
+   
+   
+   
    
 </beans>

@@ -14,6 +14,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/images/**" location="/resources/images/" />
+	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/profile/**" location="/profile/" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -26,10 +27,25 @@
 		<beans:property name="maxUploadSize" value="10485760" />
 		<beans:property name="defaultEncoding" value="UTF-8"/>
 	</beans:bean>
-	
-	<context:component-scan base-package="kh.spring.dao" />
-	
 	<!-- 
-	<context:component-scan base-package="kh.spring" />
+	<context:component-scan base-package="kh.spring.dao" />
 	 -->
+	
+	<context:component-scan base-package="kh.spring" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<!-- 모든 요청을 다 검열함 -->
+			<exclude-mapping path="/" />
+			<exclude-mapping path="/images/**" />
+			<exclude-mapping path="/resources/**" />
+			<exclude-mapping path="/profile/**" />
+			<exclude-mapping path="/member/login" />
+			<exclude-mapping path="/member/toSignup" />
+			<exclude-mapping path="/loginIDerror" />
+			<beans:bean class="kh.spring.interceptors.LoginValidator"/>
+		</interceptor>
+	</interceptors>
+	
 </beans:beans>

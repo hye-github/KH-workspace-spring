@@ -20,10 +20,10 @@ public class MemberDAOTest {
 	@Autowired
 	private MemberDAO dao;
 	
-	@Test
-	public void insertTest() throws Exception {
-		dao.sign(new MemberDTO("id","pw","name","phone","email",null,
-				"address1","address2",null,null),null);
-	}
+//	@Test
+//	public void insertTest() throws Exception {
+//		dao.sign(new MemberDTO("id","pw","name","phone","email",null,
+//				"address1","address2",null,null),null);
+//	}
 	
 }
